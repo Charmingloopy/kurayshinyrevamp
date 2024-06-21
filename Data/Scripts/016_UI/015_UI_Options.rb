@@ -120,6 +120,9 @@ class PokemonSystem
   attr_accessor :icebuff
   #End of By Blue Wuppo
 
+  #Made by CharmingLoopy
+  attr_accessor :magnitude_buff
+  #End of By CharmingLoopy
   attr_accessor :ch_metronome
   attr_accessor :ch_letdownplayer
   attr_accessor :ch_letdown
@@ -220,7 +223,6 @@ class PokemonSystem
     @eventmoves = 0
     @nopngexport = 0
     @nopngimport = 0
-    
     # Challenges
     @ch_metronome = 0
     @ch_letdownplayer = 0
@@ -253,6 +255,9 @@ class PokemonSystem
     @bugbuff = 0
     @icebuff = 0
     #End of By Blue Wuppo
+    #Made by CharmingLoopy
+    @magnitude_buff = 0
+    #End of By CharmingLoopy
     @speedvalue = 2
     @speedtoggle = 0#0 = Old way (Old PIF speedup system), 1 = HOLD (new way)
     @speeduplimit = 4
@@ -408,6 +413,9 @@ class PokemonSystem
     @bugbuff = saved.bugbuff if saved.bugbuff
     @icebuff = saved.icebuff if saved.icebuff
     #End of By Blue Wuppo
+    #Made by CharmingLoopy
+    @magnitude_buff = saved.magnitude_buff if saved.magnitude_buff
+    #End of By CharmingLoopy
     # Challenges
     @ch_metronome = saved.ch_metronome if saved.ch_metronome
     @ch_letdownplayer = saved.ch_letdownplayer if saved.ch_letdownplayer
@@ -510,6 +518,7 @@ def options_as_json(options={})
     "drowsy" => $PokemonSystem.drowsy,
     "bugbuff" => $PokemonSystem.bugbuff,
     "icebuff" => $PokemonSystem.icebuff,
+    "magnitude_buff" => $PokemonSystem.magnitude_buff,
     "ch_metronome" => $PokemonSystem.ch_metronome,
     "ch_letdownplayer" => $PokemonSystem.ch_letdownplayer,
     "ch_letdown" => $PokemonSystem.ch_letdown,
@@ -623,6 +632,7 @@ def options_load_json(jsonparse)
   $PokemonSystem.drowsy = jsonparse['drowsy']
   $PokemonSystem.bugbuff = jsonparse['bugbuff']
   $PokemonSystem.icebuff = jsonparse['icebuff']
+  $PokemonSystem.magnitude_buff = jsonparse['magnitude_buff']
   $PokemonSystem.ch_metronome = jsonparse['ch_metronome']
   $PokemonSystem.ch_letdownplayer = jsonparse['ch_letdownplayer']
   $PokemonSystem.ch_letdown = jsonparse['ch_letdown']
@@ -2139,6 +2149,14 @@ class KurayOptSc_2 < PokemonOption_Scene
     ["Vanilla Frozen Status.",
     "Frostbite Status from Gen 9+ replaces Frozen Status."]
     )
+	    
+options << EnumOption.new(_INTL("Maginitude Rework"), [_INTL("false"), _INTL("true")],
+    proc { $PokemonSystem.magnitude_rework },
+    proc { |value, _scene| $PokemonSystem.magnitude_rework = value}
+    ["Vanilla Magnitude.",
+    "Buffs Magnitude: size 8+ magnitudes set up stealth rocks",
+    "Only your Pokemons are forced to use Metronome. [Hard]"]
+)
     options << EnumOption.new(_INTL("Drowsy"), [_INTL("Off"), _INTL("On")],
     proc { $PokemonSystem.drowsy },
     proc { |value| $PokemonSystem.drowsy = value },
